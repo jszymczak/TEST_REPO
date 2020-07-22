@@ -28,6 +28,8 @@ public class ArraysNeighbours {
 
         int[][] firstArray = new int[listSize][listSize];
         int[][] secondArray = new int[listSize][listSize];
+        System.out.println(Arrays.asList(testList.get(1).split("\\s+")));
+        System.out.println(Arrays.asList(testList.get(0).split("\\s+")));
 
         for (int i = 0; i < listSize; i++) {
             for (int j = 0; j < listSize; j++) {
@@ -42,13 +44,17 @@ public class ArraysNeighbours {
                 boolean jIsZero = j == 0;
                 boolean jIsLast = j == listSizeMinusOne;
                 boolean iIsLast = i == listSizeMinusOne;
+                if (listSize == 1) {
+                    secondArray[0][0] = firstArray[0][0] * 4;
+                    break;
+                }
                 if (iIsZero) {
                     if (jIsZero) {
                         secondArray[i][j] = firstArray[i + 1][j] + firstArray[listSizeMinusOne][j]
                                 + firstArray[i][j + 1] + firstArray[i][listSizeMinusOne];
                     } else if (jIsLast) {
-                        secondArray[i][j] = firstArray[i + 1][j] + firstArray[listSizeMinusOne][j]
-                                + firstArray[i][0] + firstArray[i][j - 1];
+                        secondArray[i][j] = firstArray[i][j - 1] + firstArray[i][0]
+                                + firstArray[i + 1][j] + firstArray[listSizeMinusOne][j];
                     } else {
                         secondArray[i][j] = firstArray[i + 1][j] + firstArray[listSizeMinusOne][j]
                                 + firstArray[i][j + 1] + firstArray[i][j - 1];
@@ -56,7 +62,7 @@ public class ArraysNeighbours {
                 } else if (iIsLast) {
                     if (jIsZero) {
                         secondArray[i][j] = firstArray[i - 1][j] + firstArray[0][j]
-                                + firstArray[i][j + 1] + firstArray[i][0];
+                                + firstArray[i][j + 1] + firstArray[i][listSizeMinusOne];
                     } else if (jIsLast){
                         secondArray[i][j] = firstArray[i - 1][j] + firstArray[0][j]
                                 + firstArray[i][j - 1] + firstArray[i][0];
@@ -78,7 +84,10 @@ public class ArraysNeighbours {
         }
 
         for (int i = 0; i < listSize; i++) {
-            System.out.println(Arrays.toString(secondArray[i]));
+            for (int j = 0; j < listSize; j++) {
+                System.out.print(secondArray[i][j] + " ");
+            }
+            System.out.println("");
         }
     }
 }
